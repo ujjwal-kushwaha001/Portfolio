@@ -9,6 +9,7 @@ import html from '../assets/html.png'
 import react from '../assets/react.svg'
 import tailwind from '../assets/tailwind.png'
 import bootstrap from '../assets/bootstrap.svg'
+
 const About = () => {
   return (
     <>
