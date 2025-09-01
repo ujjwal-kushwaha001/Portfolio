@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/navbar'
-import About from './components/About'
+import About from './components/about'
 import Summary from './components/summary'
 import Skills from './components/skills'
 import LookingFor from './components/lookingFor'
