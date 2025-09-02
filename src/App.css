@@ -136,6 +136,9 @@ input[type="range"] {
         margin-left: 15px;
     }
 
+    .card{
+        width: 85%;
+    }
 }
 
 @media screen and (max-width:1185px) {

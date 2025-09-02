@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import aesthetic from "../assets/aesthetic.jpg";
+import {toast} from 'react-toastify'
 
 const contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
-
-  
-
 
   const FormSubmit = async(event) => {
     event.preventDefault();
@@ -35,9 +32,8 @@ const contact = () => {
       }).then(data =>{
         console.log('POST request successful:', data);
       })
-  }, 3000);
+  }, 1000);
 
-  
     setName('')
     setEmail('')
     setMessage('')
@@ -64,7 +60,7 @@ const contact = () => {
           </div>
           <div className="contact-right d-flex justify-content-center align-items-center">
             <div className="card border border-secondary position-relative top-40px">
-              <form action="https://formspree.io/f/xeollkrz" method="POST" onSubmit={FormSubmit}>
+              <form method="POST" onSubmit={FormSubmit}>
                 <div className="personal-details d-flex flex-column justify-content-center align-items-center my-4 gap-2">
                   <h4 className="mx-4 py-3">SAY SOMETHING</h4>
                   <input
@@ -73,6 +69,7 @@ const contact = () => {
                     className="px-1 w-75 py-2"
                     type="text"
                     placeholder="Name"
+                    required
                   />
                   <input
                     value={email}
@@ -80,6 +77,7 @@ const contact = () => {
                     className="px-1 w-75 py-2"
                     type="email"
                     placeholder="Email"
+                    required
                   />
                   <textarea
                     value={message}
@@ -89,6 +87,7 @@ const contact = () => {
                     id="message"
                     cols={43}
                     rows={5}
+                    required
                   ></textarea>
                   <button
                     type="submit"
