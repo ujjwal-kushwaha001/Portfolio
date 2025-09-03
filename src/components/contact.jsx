@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
-import aesthetic from "../assets/aesthetic.jpg";
-import {toast} from 'react-toastify'
+
 
 const contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const FormSubmit = async(event) => {
+    setIsSuccess(false)
     event.preventDefault();
+    setIsLoading(true)
     const UserData = {
       name: name,
       email: email,
       message: message,
     };
 
-    setTimeout(async() => {
-
+    try {
       await fetch('https://formspree.io/f/xeollkrz', {
         method: "POST",
         headers: {
@@ -27,12 +30,19 @@ const contact = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status} `)
         }
-  
         return response.text()
       }).then(data =>{
         console.log('POST request successful:', data);
+        setIsSuccess(true)
       })
-  }, 1000);
+
+    } catch (error) {
+      console.log(error);
+      
+    } finally{
+      setIsLoading(false)
+    }
+    
 
     setName('')
     setEmail('')
@@ -70,6 +80,7 @@ const contact = () => {
                     type="text"
                     placeholder="Name"
                     required
+                    disabled={isLoading}
                   />
                   <input
                     value={email}
@@ -78,6 +89,7 @@ const contact = () => {
                     type="email"
                     placeholder="Email"
                     required
+                    disabled={isLoading}
                   />
                   <textarea
                     value={message}
@@ -88,13 +100,18 @@ const contact = () => {
                     cols={43}
                     rows={5}
                     required
+                    disabled={isLoading}
                   ></textarea>
                   <button
                     type="submit"
                     className="mt-5 w-75 border bg-primary py-2"
+                    disabled={isLoading}
                   >
-                    Send Now
+                    {isLoading ? 'Sending...' : 'Send Now'}
                   </button>
+                  {isSuccess? (
+                    <div className=" text-success font-weight: 700"> Message Sent Successfully! 😊</div>
+                  ): ''}
                 </div>
               </form>
             </div>
